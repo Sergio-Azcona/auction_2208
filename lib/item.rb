@@ -3,10 +3,11 @@ class Item
   def initialize(name)
     @name = name
     @bids = Hash.new(0)
+    @open_bidding = true
   end
 
   def add_bid(bidder, bid_amount)
-  @bids[bidder] += bid_amount
+    @bids[bidder] += bid_amount if @open_bidding == true
   end
 
   def current_high_bid
@@ -15,4 +16,7 @@ class Item
     all_bids.max
   end
 
+  def close_bidding
+     @open_bidding = false
+  end
 end

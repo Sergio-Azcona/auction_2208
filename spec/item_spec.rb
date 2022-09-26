@@ -36,5 +36,13 @@ RSpec.describe Item do
       expect(item1.current_high_bid).to eq 22
       expect(item3.current_high_bid).not_to eq 50
     end
+
+    it 'updates the item so that it will not accept additional bids' do
+      expect(item1.bids).to eq({attendee2 => 20, attendee1 => 22})
+      item1.close_bidding
+      item1.add_bid(attendee3, 70)
+      expect(item1.bids).not_to include({attendee3 => 70})
+      expect(item1.bids).to eq({attendee2 => 20, attendee1 => 22})
+    end
   end
 end
